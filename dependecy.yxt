@@ -1,0 +1,5 @@
+npm i express
+npm i cors
+sudo kill -9 `sudo lsof -t -i:5001
+netstat -ltnp | grep -w '3000'
+kill -9 29972
