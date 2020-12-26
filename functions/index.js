@@ -126,14 +126,14 @@ app.get('/product/list', (req,res)=>{
 
 //update
 
-app.put('/product/updateCategory/:id', (req,res)=>{
+app.put('/product/updateCategory', (req,res)=>{
     (async ()=> {
         try{
             const document_category=db.collection('category').doc('/'+req.body.categoryId+'/');
             let product__category =await document_category.get();
             let res_category=product__category.data();
             console.log(res_category)
-            const document=db.collection('products').doc(req.params.id);
+            const document=db.collection('products').doc('/'+req.body.id+'/');
             await document.update({
                 
                
@@ -155,6 +155,32 @@ app.put('/product/updateCategory/:id', (req,res)=>{
     })();
 });
 
+
+app.put('/product/update/ratingDetails/:id', (req,res)=>{
+    (async ()=> {
+        try{
+           
+            const document=db.collection('products').doc(req.params.id);
+            await document.update({
+                
+               
+                averageRating:req.body.averageRating,
+                numberOfRaters:req.body.raters
+               
+            });
+
+
+            return res.status(201).send();
+
+        }
+        catch (error){
+            console.log("Hello")
+            console.log(error);
+            return res.status(500).send(error);
+        }
+
+    })();
+});
 
 
 //export the api to firebase cloud functuin
